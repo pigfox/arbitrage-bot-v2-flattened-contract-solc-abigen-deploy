@@ -108,9 +108,7 @@ func Run() {
 		log.Fatal(err.Error() + " " + reason + " " + whereami.WhereAmI())
 	}
 
-	fmt.Println(instance)
-
-	fmt.Println(address.Hex(), tx.Hash().Hex())
+	_ = instance
 }
 
 func getRevertReason(receipt *types.Receipt) (string, error) {
