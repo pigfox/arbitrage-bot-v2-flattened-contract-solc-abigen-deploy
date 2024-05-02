@@ -37,7 +37,7 @@ func SolC() {
 	}
 
 	// Compile the contract using solc
-	cmd := exec.Command("solc", "--optimize", "--optimize-runs 200", "--abi", "--bin", "--overwrite", "--output-dir", outputDir, contractFile)
+	cmd := exec.Command("solc", "--optimize", "--optimize-runs", "200", "--abi", "--bin", "--overwrite", "--output-dir", outputDir, contractFile)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("Failed to compile contract: %v\nOutput: %s", err, string(output))
