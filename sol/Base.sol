@@ -5,7 +5,10 @@ contract Somemath{
     uint private q;
     constructor(){}
 
+    event Adding(uint x, uint y);
+    event SettingQ(uint q);
     function setQ(uint _q)external{
+        emit SettingQ(_q);
         q = _q;
     }
 
@@ -13,7 +16,8 @@ contract Somemath{
         return q;
     }
 
-    function add(uint _x, uint _y) external pure returns(uint){
+    function add(uint _x, uint _y) external returns(uint){
+        emit Adding(_x, _y);
         return _x+_y;
     }
 }
@@ -27,5 +31,8 @@ contract Stringer{
 }
 
 contract Base is Somemath, Stringer{
-    constructor(){}
+    event Created(address owner, address delployedAt);
+    constructor(){
+        emit Created(msg.sender, address (this));
+    }
 }

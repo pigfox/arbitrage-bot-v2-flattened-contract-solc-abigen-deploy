@@ -1,7 +1,7 @@
 package compile
 
 import (
-	"flattened-contract-solc-abigen/util"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/util"
 	"fmt"
 	"log"
 	"os"
@@ -16,11 +16,12 @@ func SolC() {
 	apiDir := currentPath + "/api"                                    // Directory to store generated Go bindings
 	generatedFileName := "Base"
 	generatedPackageName := "api"
-
+	/*	*/
 	err := util.EmptyFolder(outputDir)
 	if err != nil {
 		log.Fatalf(" %v\n: %s can't empty folder", err, outputDir)
 	}
+
 	err = util.EmptyFolder(apiDir)
 	if err != nil {
 		log.Fatalf(" %v\n: %s can't empty folder", err, apiDir)
@@ -41,6 +42,10 @@ func SolC() {
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("Failed to compile contract: %v\nOutput: %s", err, string(output))
+	}
+	err = util.List(outputDir)
+	if err != nil {
+		log.Fatalf(" %v\n: %s can't list folder", err, outputDir)
 	}
 	fmt.Println("Contract compiled successfully")
 	//mergedFiles(outputDir, apiDir, generatedFileName, generatedPackageName)

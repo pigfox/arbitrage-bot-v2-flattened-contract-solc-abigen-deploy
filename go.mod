@@ -1,4 +1,4 @@
-module flattened-contract-solc-abigen
+module arbitrage-bot-v2-flattened-contract-solc-abigen-deploy
 
 go 1.22.0
 

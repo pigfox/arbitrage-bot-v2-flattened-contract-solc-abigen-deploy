@@ -1,6 +1,7 @@
 package compile
 
 import (
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/util"
 	"fmt"
 	"log"
 	"os/exec"
@@ -15,6 +16,11 @@ func baseFile(outputDir, apiDir, generatedFileName, generatedPackageName string)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("Failed to generate Go bindings: %v\nOutput: %s", err, string(output))
+	}
+
+	err = util.List(apiDir)
+	if err != nil {
+		log.Fatalf(" %v\n: %s can't list folder", err, outputDir)
 	}
 	fmt.Println("Go bindings generated successfully")
 }

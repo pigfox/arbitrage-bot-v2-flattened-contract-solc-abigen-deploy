@@ -1,13 +1,13 @@
 package deploy
 
 import (
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/api"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"bytes"
 	"context"
 	"crypto/ecdsa"
-	"flattened-contract-solc-abigen/api"
-	"flattened-contract-solc-abigen/config"
-	"flattened-contract-solc-abigen/connection"
-	"flattened-contract-solc-abigen/wallet"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/core/types"

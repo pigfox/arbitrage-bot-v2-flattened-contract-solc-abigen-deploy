@@ -1,10 +1,12 @@
 package main
 
 import (
-	"flattened-contract-solc-abigen/code"
-	"flattened-contract-solc-abigen/config"
-	"flattened-contract-solc-abigen/connection"
-	"flattened-contract-solc-abigen/wallet"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/code"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/compile"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/deploy"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"fmt"
 )
 
@@ -17,7 +19,7 @@ func setUp() {
 
 func main() {
 	setUp()
-	//compile.SolC()
-	//deploy.Run()
+	compile.SolC()
+	deploy.Run()
 	code.Run()
 }

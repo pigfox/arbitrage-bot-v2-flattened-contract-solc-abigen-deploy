@@ -31,8 +31,8 @@ var (
 
 // BaseMetaData contains all meta data concerning the Base contract.
 var BaseMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_x\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_y\",\"type\":\"uint256\"}],\"name\":\"add\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"s\",\"type\":\"string\"}],\"name\":\"concat\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getQ\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_q\",\"type\":\"uint256\"}],\"name\":\"setQ\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
-	Bin: "0x60c0604052600360809081526261626360e81b60a05260019061002290826100cc565b5034801561002e575f80fd5b5061018b565b634e487b7160e01b5f52604160045260245ffd5b600181811c9082168061005c57607f821691505b60208210810361007a57634e487b7160e01b5f52602260045260245ffd5b50919050565b601f8211156100c757805f5260205f20601f840160051c810160208510156100a55750805b601f840160051c820191505b818110156100c4575f81556001016100b1565b50505b505050565b81516001600160401b038111156100e5576100e5610034565b6100f9816100f38454610048565b84610080565b602080601f83116001811461012c575f84156101155750858301515b5f19600386901b1c1916600185901b178555610183565b5f85815260208120601f198616915b8281101561015a5788860151825594840194600190910190840161013b565b508582101561017757878501515f19600388901b60f8161c191681555b505060018460011b0185555b505050505050565b61032f806101985f395ff3fe608060405234801561000f575f80fd5b506004361061004a575f3560e01c8063771602f71461004e5780637881c417146100745780638f2d812814610094578063e8e4197a146100a8575b5f80fd5b61006161005c3660046100ef565b6100af565b6040519081526020015b60405180910390f35b610087610082366004610123565b6100c3565b60405161006b91906101ce565b6100a66100a2366004610203565b5f55565b005b5f54610061565b5f6100ba828461021a565b90505b92915050565b60606001826040516020016100d9929190610250565b6040516020818303038152906040529050919050565b5f8060408385031215610100575f80fd5b50508035926020909101359150565b634e487b7160e01b5f52604160045260245ffd5b5f60208284031215610133575f80fd5b813567ffffffffffffffff8082111561014a575f80fd5b818401915084601f83011261015d575f80fd5b81358181111561016f5761016f61010f565b604051601f8201601f19908116603f011681019083821181831017156101975761019761010f565b816040528281528760208487010111156101af575f80fd5b826020860160208301375f928101602001929092525095945050505050565b602081525f82518060208401528060208501604085015e5f604082850101526040601f19601f83011684010191505092915050565b5f60208284031215610213575f80fd5b5035919050565b808201808211156100bd57634e487b7160e01b5f52601160045260245ffd5b5f81518060208401855e5f93019283525090919050565b5f8084545f60018260011c9150600183168061026d57607f831692505b6020808410820361028c57634e487b7160e01b5f52602260045260245ffd5b8180156102a057600181146102b5576102e0565b60ff19861689528415158502890196506102e0565b5f8b8152602090205f5b868110156102d85781548b8201529085019083016102bf565b505084890196505b5050505050506102f08185610239565b9594505050505056fea264697066735822122038b2b42d1c12f77a7f89c634041f1601e34e56cd9d6e636e14c231a2390f6e6164736f6c63430008190033",
+	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"x\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"y\",\"type\":\"uint256\"}],\"name\":\"Adding\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"delployedAt\",\"type\":\"address\"}],\"name\":\"Created\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"q\",\"type\":\"uint256\"}],\"name\":\"SettingQ\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_x\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_y\",\"type\":\"uint256\"}],\"name\":\"add\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"s\",\"type\":\"string\"}],\"name\":\"concat\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getQ\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_q\",\"type\":\"uint256\"}],\"name\":\"setQ\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Bin: "0x60c0604052600360809081526261626360e81b60a0526001906100229082610104565b5034801561002e575f80fd5b50604080513381523060208201527f587ece4cd19692c5be1a4184503d607d45542d2aca0698c0068f52e09ccb541c910160405180910390a16101c3565b634e487b7160e01b5f52604160045260245ffd5b600181811c9082168061009457607f821691505b6020821081036100b257634e487b7160e01b5f52602260045260245ffd5b50919050565b601f8211156100ff57805f5260205f20601f840160051c810160208510156100dd5750805b601f840160051c820191505b818110156100fc575f81556001016100e9565b50505b505050565b81516001600160401b0381111561011d5761011d61006c565b6101318161012b8454610080565b846100b8565b602080601f831160018114610164575f841561014d5750858301515b5f19600386901b1c1916600185901b1785556101bb565b5f85815260208120601f198616915b8281101561019257888601518255948401946001909101908401610173565b50858210156101af57878501515f19600388901b60f8161c191681555b505060018460011b0185555b505050505050565b6103a1806101d05f395ff3fe608060405234801561000f575f80fd5b506004361061004a575f3560e01c8063771602f71461004e5780637881c417146100745780638f2d812814610094578063e8e4197a146100a9575b5f80fd5b61006161005c366004610161565b6100b0565b6040519081526020015b60405180910390f35b610087610082366004610195565b6100fe565b60405161006b9190610240565b6100a76100a2366004610275565b61012a565b005b5f54610061565b60408051838152602081018390525f917f8cee9bf80efda447f9d9d047e2e937b140e1c653cb2af0f39d1f6c52a1ffd7dc910160405180910390a16100f5828461028c565b90505b92915050565b60606001826040516020016101149291906102c2565b6040516020818303038152906040529050919050565b6040518181527f4af6c9c7470c3b6ab60fab4fef0d6053a5a05afd3df0b7be9243f972be4eb66b9060200160405180910390a15f55565b5f8060408385031215610172575f80fd5b50508035926020909101359150565b634e487b7160e01b5f52604160045260245ffd5b5f602082840312156101a5575f80fd5b813567ffffffffffffffff808211156101bc575f80fd5b818401915084601f8301126101cf575f80fd5b8135818111156101e1576101e1610181565b604051601f8201601f19908116603f0116810190838211818310171561020957610209610181565b81604052828152876020848701011115610221575f80fd5b826020860160208301375f928101602001929092525095945050505050565b602081525f82518060208401528060208501604085015e5f604082850101526040601f19601f83011684010191505092915050565b5f60208284031215610285575f80fd5b5035919050565b808201808211156100f857634e487b7160e01b5f52601160045260245ffd5b5f81518060208401855e5f93019283525090919050565b5f8084545f60018260011c915060018316806102df57607f831692505b602080841082036102fe57634e487b7160e01b5f52602260045260245ffd5b818015610312576001811461032757610352565b60ff1986168952841515850289019650610352565b5f8b8152602090205f5b8681101561034a5781548b820152908501908301610331565b505084890196505b50505050505061036281856102ab565b9594505050505056fea2646970667358221220c32802192a20c0d4316680a9240de6f2893365ae9f0e10410f69bc74b10b516964736f6c63430008190033",
 }
 
 // BaseABI is the input ABI used to generate the binding from.
@@ -202,37 +202,6 @@ func (_Base *BaseTransactorRaw) Transact(opts *bind.TransactOpts, method string,
 	return _Base.Contract.contract.Transact(opts, method, params...)
 }
 
-// Add is a free data retrieval call binding the contract method 0x771602f7.
-//
-// Solidity: function add(uint256 _x, uint256 _y) pure returns(uint256)
-func (_Base *BaseCaller) Add(opts *bind.CallOpts, _x *big.Int, _y *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _Base.contract.Call(opts, &out, "add", _x, _y)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// Add is a free data retrieval call binding the contract method 0x771602f7.
-//
-// Solidity: function add(uint256 _x, uint256 _y) pure returns(uint256)
-func (_Base *BaseSession) Add(_x *big.Int, _y *big.Int) (*big.Int, error) {
-	return _Base.Contract.Add(&_Base.CallOpts, _x, _y)
-}
-
-// Add is a free data retrieval call binding the contract method 0x771602f7.
-//
-// Solidity: function add(uint256 _x, uint256 _y) pure returns(uint256)
-func (_Base *BaseCallerSession) Add(_x *big.Int, _y *big.Int) (*big.Int, error) {
-	return _Base.Contract.Add(&_Base.CallOpts, _x, _y)
-}
-
 // Concat is a free data retrieval call binding the contract method 0x7881c417.
 //
 // Solidity: function concat(string s) view returns(string)
@@ -295,6 +264,27 @@ func (_Base *BaseCallerSession) GetQ() (*big.Int, error) {
 	return _Base.Contract.GetQ(&_Base.CallOpts)
 }
 
+// Add is a paid mutator transaction binding the contract method 0x771602f7.
+//
+// Solidity: function add(uint256 _x, uint256 _y) returns(uint256)
+func (_Base *BaseTransactor) Add(opts *bind.TransactOpts, _x *big.Int, _y *big.Int) (*types.Transaction, error) {
+	return _Base.contract.Transact(opts, "add", _x, _y)
+}
+
+// Add is a paid mutator transaction binding the contract method 0x771602f7.
+//
+// Solidity: function add(uint256 _x, uint256 _y) returns(uint256)
+func (_Base *BaseSession) Add(_x *big.Int, _y *big.Int) (*types.Transaction, error) {
+	return _Base.Contract.Add(&_Base.TransactOpts, _x, _y)
+}
+
+// Add is a paid mutator transaction binding the contract method 0x771602f7.
+//
+// Solidity: function add(uint256 _x, uint256 _y) returns(uint256)
+func (_Base *BaseTransactorSession) Add(_x *big.Int, _y *big.Int) (*types.Transaction, error) {
+	return _Base.Contract.Add(&_Base.TransactOpts, _x, _y)
+}
+
 // SetQ is a paid mutator transaction binding the contract method 0x8f2d8128.
 //
 // Solidity: function setQ(uint256 _q) returns()
@@ -314,4 +304,408 @@ func (_Base *BaseSession) SetQ(_q *big.Int) (*types.Transaction, error) {
 // Solidity: function setQ(uint256 _q) returns()
 func (_Base *BaseTransactorSession) SetQ(_q *big.Int) (*types.Transaction, error) {
 	return _Base.Contract.SetQ(&_Base.TransactOpts, _q)
+}
+
+// BaseAddingIterator is returned from FilterAdding and is used to iterate over the raw logs and unpacked data for Adding events raised by the Base contract.
+type BaseAddingIterator struct {
+	Event *BaseAdding // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *BaseAddingIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(BaseAdding)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(BaseAdding)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *BaseAddingIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *BaseAddingIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// BaseAdding represents a Adding event raised by the Base contract.
+type BaseAdding struct {
+	X   *big.Int
+	Y   *big.Int
+	Raw types.Log // Blockchain specific contextual infos
+}
+
+// FilterAdding is a free log retrieval operation binding the contract event 0x8cee9bf80efda447f9d9d047e2e937b140e1c653cb2af0f39d1f6c52a1ffd7dc.
+//
+// Solidity: event Adding(uint256 x, uint256 y)
+func (_Base *BaseFilterer) FilterAdding(opts *bind.FilterOpts) (*BaseAddingIterator, error) {
+
+	logs, sub, err := _Base.contract.FilterLogs(opts, "Adding")
+	if err != nil {
+		return nil, err
+	}
+	return &BaseAddingIterator{contract: _Base.contract, event: "Adding", logs: logs, sub: sub}, nil
+}
+
+// WatchAdding is a free log subscription operation binding the contract event 0x8cee9bf80efda447f9d9d047e2e937b140e1c653cb2af0f39d1f6c52a1ffd7dc.
+//
+// Solidity: event Adding(uint256 x, uint256 y)
+func (_Base *BaseFilterer) WatchAdding(opts *bind.WatchOpts, sink chan<- *BaseAdding) (event.Subscription, error) {
+
+	logs, sub, err := _Base.contract.WatchLogs(opts, "Adding")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(BaseAdding)
+				if err := _Base.contract.UnpackLog(event, "Adding", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseAdding is a log parse operation binding the contract event 0x8cee9bf80efda447f9d9d047e2e937b140e1c653cb2af0f39d1f6c52a1ffd7dc.
+//
+// Solidity: event Adding(uint256 x, uint256 y)
+func (_Base *BaseFilterer) ParseAdding(log types.Log) (*BaseAdding, error) {
+	event := new(BaseAdding)
+	if err := _Base.contract.UnpackLog(event, "Adding", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// BaseCreatedIterator is returned from FilterCreated and is used to iterate over the raw logs and unpacked data for Created events raised by the Base contract.
+type BaseCreatedIterator struct {
+	Event *BaseCreated // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *BaseCreatedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(BaseCreated)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(BaseCreated)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *BaseCreatedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *BaseCreatedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// BaseCreated represents a Created event raised by the Base contract.
+type BaseCreated struct {
+	Owner       common.Address
+	DelployedAt common.Address
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterCreated is a free log retrieval operation binding the contract event 0x587ece4cd19692c5be1a4184503d607d45542d2aca0698c0068f52e09ccb541c.
+//
+// Solidity: event Created(address owner, address delployedAt)
+func (_Base *BaseFilterer) FilterCreated(opts *bind.FilterOpts) (*BaseCreatedIterator, error) {
+
+	logs, sub, err := _Base.contract.FilterLogs(opts, "Created")
+	if err != nil {
+		return nil, err
+	}
+	return &BaseCreatedIterator{contract: _Base.contract, event: "Created", logs: logs, sub: sub}, nil
+}
+
+// WatchCreated is a free log subscription operation binding the contract event 0x587ece4cd19692c5be1a4184503d607d45542d2aca0698c0068f52e09ccb541c.
+//
+// Solidity: event Created(address owner, address delployedAt)
+func (_Base *BaseFilterer) WatchCreated(opts *bind.WatchOpts, sink chan<- *BaseCreated) (event.Subscription, error) {
+
+	logs, sub, err := _Base.contract.WatchLogs(opts, "Created")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(BaseCreated)
+				if err := _Base.contract.UnpackLog(event, "Created", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseCreated is a log parse operation binding the contract event 0x587ece4cd19692c5be1a4184503d607d45542d2aca0698c0068f52e09ccb541c.
+//
+// Solidity: event Created(address owner, address delployedAt)
+func (_Base *BaseFilterer) ParseCreated(log types.Log) (*BaseCreated, error) {
+	event := new(BaseCreated)
+	if err := _Base.contract.UnpackLog(event, "Created", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// BaseSettingQIterator is returned from FilterSettingQ and is used to iterate over the raw logs and unpacked data for SettingQ events raised by the Base contract.
+type BaseSettingQIterator struct {
+	Event *BaseSettingQ // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *BaseSettingQIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(BaseSettingQ)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(BaseSettingQ)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *BaseSettingQIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *BaseSettingQIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// BaseSettingQ represents a SettingQ event raised by the Base contract.
+type BaseSettingQ struct {
+	Q   *big.Int
+	Raw types.Log // Blockchain specific contextual infos
+}
+
+// FilterSettingQ is a free log retrieval operation binding the contract event 0x4af6c9c7470c3b6ab60fab4fef0d6053a5a05afd3df0b7be9243f972be4eb66b.
+//
+// Solidity: event SettingQ(uint256 q)
+func (_Base *BaseFilterer) FilterSettingQ(opts *bind.FilterOpts) (*BaseSettingQIterator, error) {
+
+	logs, sub, err := _Base.contract.FilterLogs(opts, "SettingQ")
+	if err != nil {
+		return nil, err
+	}
+	return &BaseSettingQIterator{contract: _Base.contract, event: "SettingQ", logs: logs, sub: sub}, nil
+}
+
+// WatchSettingQ is a free log subscription operation binding the contract event 0x4af6c9c7470c3b6ab60fab4fef0d6053a5a05afd3df0b7be9243f972be4eb66b.
+//
+// Solidity: event SettingQ(uint256 q)
+func (_Base *BaseFilterer) WatchSettingQ(opts *bind.WatchOpts, sink chan<- *BaseSettingQ) (event.Subscription, error) {
+
+	logs, sub, err := _Base.contract.WatchLogs(opts, "SettingQ")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(BaseSettingQ)
+				if err := _Base.contract.UnpackLog(event, "SettingQ", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseSettingQ is a log parse operation binding the contract event 0x4af6c9c7470c3b6ab60fab4fef0d6053a5a05afd3df0b7be9243f972be4eb66b.
+//
+// Solidity: event SettingQ(uint256 q)
+func (_Base *BaseFilterer) ParseSettingQ(log types.Log) (*BaseSettingQ, error) {
+	event := new(BaseSettingQ)
+	if err := _Base.contract.UnpackLog(event, "SettingQ", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }

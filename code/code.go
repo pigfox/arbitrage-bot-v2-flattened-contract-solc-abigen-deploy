@@ -1,10 +1,10 @@
 package code
 
 import (
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/api"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
 	"context"
-	"flattened-contract-solc-abigen/api"
-	"flattened-contract-solc-abigen/config"
-	"flattened-contract-solc-abigen/connection"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -42,13 +42,13 @@ func Run() {
 
 	x := big.NewInt(100)
 	y := big.NewInt(207)
-	result, err := instance.Add(nil, x, y)
+	result, err := instance.Add(auth, x, y)
 	if err != nil {
 		log.Fatalf("Failed to execute Add: %v", err)
 	}
 	fmt.Printf("Add result: %d\n", result)
 
-	resultConcat, err := instance.Concat(nil, "qwBBBBBhuguty")
+	resultConcat, err := instance.Concat(nil, "-->"+time.Now().String())
 	if err != nil {
 		log.Fatalf("Failed to execute Concat: %v", err)
 	}
@@ -68,11 +68,11 @@ func Run() {
 	customReceipt := ConvertEthReceiptToCustomReceipt(receipt)
 	fmt.Printf("Transaction Receipt: %+v\n", customReceipt)
 
-	result, err = instance.GetQ(nil)
+	resultQ, err := instance.GetQ(nil)
 	if err != nil {
 		log.Fatalf("Failed to execute GetQ: %v", err)
 	}
-	fmt.Printf("GetQ result: %d\n", result)
+	fmt.Printf("GetQ result: %d\n", resultQ)
 }
 
 func waitForTransaction(client *ethclient.Client, txHash common.Hash) (*types.Receipt, error) {

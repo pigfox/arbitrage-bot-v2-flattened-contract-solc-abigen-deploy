@@ -1,7 +1,7 @@
 package config
 
 import (
-	"flattened-contract-solc-abigen/wallet"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"fmt"
 	"math/big"
 )

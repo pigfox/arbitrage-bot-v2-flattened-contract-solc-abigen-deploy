@@ -60,5 +60,6 @@ func mergedFiles(outputDir, apiDir, generatedFileName, generatedPackageName stri
 	if err != nil {
 		log.Fatalf("Failed to generate Go bindings: %v\nOutput: %s", err, string(output))
 	}
+
 	fmt.Println("Go bindings generated successfully")
 }

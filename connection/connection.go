@@ -1,7 +1,7 @@
 package connection
 
 import (
-	"flattened-contract-solc-abigen/config"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
 	"fmt"
 	"github.com/ethereum/go-ethereum/ethclient" //nolint:goimports
 	"log"

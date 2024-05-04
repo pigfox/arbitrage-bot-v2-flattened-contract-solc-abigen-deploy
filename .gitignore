@@ -1,6 +1,6 @@
 .env
 sepolia.txt
 /tmp
-sol/Pigfox.sol
+../arbitrage-bot-v2-remix/Pigfox.sol
 sol/artifacts/
 
