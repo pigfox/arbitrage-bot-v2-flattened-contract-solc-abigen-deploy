@@ -17,8 +17,11 @@ import (
 	"time"
 )
 
+var currentAddress = "0x938c5cC616EDA96642D2E1AEa7680aDEAFA93B26"
+
 func Run() {
 	fmt.Println("Running code...")
+	setABIs()
 	privateKey, err := crypto.HexToECDSA(config.Map[config.Active].UserWallet.PrivateKey)
 	if err != nil {
 		log.Fatalf("Invalid private key: %v", err)
@@ -34,7 +37,7 @@ func Run() {
 		log.Fatalf("Failed to create authorized transactor: %v", err)
 	}
 
-	contractAddress := common.HexToAddress("0x24FBf065EFbb2204Be8E4C1cf847cD7065074503")
+	contractAddress := common.HexToAddress(currentAddress)
 	instance, err := api.NewBase(contractAddress, connection.RPC.Client)
 	if err != nil {
 		log.Fatalf("Failed to bind to Base contract: %v", err)
@@ -73,6 +76,9 @@ func Run() {
 		log.Fatalf("Failed to execute GetQ: %v", err)
 	}
 	fmt.Printf("GetQ result: %d\n", resultQ)
+	go subscribeEvent()
+	for {
+	}
 }
 
 func waitForTransaction(client *ethclient.Client, txHash common.Hash) (*types.Receipt, error) {
