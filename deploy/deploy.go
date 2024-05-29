@@ -4,6 +4,7 @@ import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/api"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/structs"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"bytes"
 	"context"
@@ -18,6 +19,7 @@ import (
 )
 
 func Run() {
+	fmt.Println("Contract deploying...")
 	privateKey, err := crypto.HexToECDSA(wallet.Sepolia.PrivateKey)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
@@ -82,7 +84,7 @@ func Run() {
 	fmt.Println("auth.GasPrice: ", auth.GasPrice)
 	fmt.Println("nonce: ", auth.Nonce)
 
-	address, tx, instance, err := api.DeployBase(auth, connection.RPC.Client)
+	address, tx, instance, err := api.DeployPigfox(auth, connection.RPC.Client)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
@@ -93,8 +95,14 @@ func Run() {
 	fmt.Println("Token cost:", tx.Cost())
 	fmt.Println("Token gas limit:", tx.Gas())
 	fmt.Println("Token gas price:", tx.GasPrice())
-	fmt.Println("Waiting to be mined...")
 
+	structs.OnChainContract.Address = address.Hex()
+	structs.OnChainContract.TxHash = tx.Hash().Hex()
+	structs.OnChainContract.TxCost = tx.Cost()
+	structs.OnChainContract.Gas = tx.Gas()
+	structs.OnChainContract.GasPrice = tx.GasPrice()
+
+	fmt.Println("Waiting to be mined...")
 	receipt, err := bind.WaitMined(context.Background(), connection.RPC.Client, tx)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
@@ -120,14 +128,14 @@ func getRevertReason(receipt *types.Receipt) (string, error) {
 	revertEventSig := []byte("Error(string)")
 
 	// Iterate through the receipt logs to find the revert event
-	for _, log := range receipt.Logs {
-		if len(log.Topics) > 0 && bytes.Equal(log.Topics[0].Bytes(), revertEventSig) {
-			if len(log.Data) < 32 {
+	for _, receiptLog := range receipt.Logs {
+		if len(receiptLog.Topics) > 0 && bytes.Equal(receiptLog.Topics[0].Bytes(), revertEventSig) {
+			if len(receiptLog.Data) < 32 {
 				return "", fmt.Errorf("Invalid event data")
 			}
 
 			// Extract the revert reason from the event data
-			revertReason := string(log.Data[32:])
+			revertReason := string(receiptLog.Data[32:])
 			return revertReason, nil
 		}
 	}

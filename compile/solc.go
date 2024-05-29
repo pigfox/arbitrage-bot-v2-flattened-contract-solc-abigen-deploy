@@ -8,13 +8,13 @@ import (
 	"os/exec"
 )
 
-func SolC() {
+func SolC(filename string) {
 	currentPath := util.GetCurrentPath()
-	contractFileName := "Base"
+	contractFileName := filename
 	contractFile := currentPath + "/sol/" + contractFileName + ".sol" // Path to the Solidity contract
 	outputDir := currentPath + "/solc-output"                         // Directory to store ABI and BIN files
 	apiDir := currentPath + "/api"                                    // Directory to store generated Go bindings
-	generatedFileName := "Base"
+	generatedFileName := filename
 	generatedPackageName := "api"
 	/*	*/
 	err := util.EmptyFolder(outputDir)
@@ -38,7 +38,7 @@ func SolC() {
 	}
 
 	// Compile the contract using solc
-	cmd := exec.Command("solc", "--optimize", "--optimize-runs", "200", "--abi", "--bin", "--overwrite", "--output-dir", outputDir, contractFile)
+	cmd := exec.Command("solc", "--optimize", "--optimize-runs", "200", "--abi", "--bin", "--overwrite", "--output-dir", outputDir, contractFile) //nolint:lll
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatalf("Failed to compile contract: %v\nOutput: %s", err, string(output))
