@@ -494,7 +494,7 @@ abstract contract ERC20 is Context, IERC20, IERC20Metadata, IERC20Errors {
      */
     function _update(address from, address to, uint256 value) internal virtual {
         if (from == address(0)) {
-            // Overflow check required: The rest of the code assumes that totalSupply never overflows
+            // Overflow check required: The rest of the xcode assumes that totalSupply never overflows
             _totalSupply += value;
         } else {
             uint256 fromBalance = _balances[from];

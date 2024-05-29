@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func SolC(filename string) {
+func Run(filename string) {
 	currentPath := util.GetCurrentPath()
 	contractFileName := filename
 	contractFile := currentPath + "/sol/" + contractFileName + ".sol" // Path to the Solidity contract
@@ -16,7 +16,7 @@ func SolC(filename string) {
 	apiDir := currentPath + "/api"                                    // Directory to store generated Go bindings
 	generatedFileName := filename
 	generatedPackageName := "api"
-	/*	*/
+
 	err := util.EmptyFolder(outputDir)
 	if err != nil {
 		log.Fatalf(" %v\n: %s can't empty folder", err, outputDir)
@@ -43,10 +43,12 @@ func SolC(filename string) {
 	if err != nil {
 		log.Fatalf("Failed to compile contract: %v\nOutput: %s", err, string(output))
 	}
-	err = util.List(outputDir)
-	if err != nil {
-		log.Fatalf(" %v\n: %s can't list folder", err, outputDir)
-	}
+	/*
+		err = util.List(outputDir)
+		if err != nil {
+			log.Fatalf(" %v\n: %s can't list folder", err, outputDir)
+		}
+	*/
 	fmt.Println("Contract compiled successfully")
 	//mergedFiles(outputDir, apiDir, generatedFileName, generatedPackageName)
 	baseFile(outputDir, apiDir, generatedFileName, generatedPackageName)

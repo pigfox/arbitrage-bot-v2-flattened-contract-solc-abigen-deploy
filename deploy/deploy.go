@@ -28,7 +28,7 @@ func Run() {
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
-		log.Fatal(err.Error() + " " + whereami.WhereAmI())
+		log.Fatal(" Not OK " + whereami.WhereAmI())
 	}
 
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
@@ -54,7 +54,6 @@ func Run() {
 	}
 
 	auth.Nonce = big.NewInt(int64(nonce))
-
 	auth.Value = big.NewInt(0)
 	auth.GasPrice = suggestedGasPrice
 
@@ -112,8 +111,11 @@ func Run() {
 	if receipt.Status == types.ReceiptStatusSuccessful {
 		fmt.Println("Token deployed successfully")
 	} else {
-		reason, err := getRevertReason(receipt) //nolint:govet
-		log.Fatal(err.Error() + " " + reason + " " + whereami.WhereAmI())
+		reason, err := getRevertReason(receipt)
+		if err != nil {
+			log.Fatal(err.Error() + whereami.WhereAmI())
+		}
+		log.Fatal(reason + " " + whereami.WhereAmI())
 	}
 
 	_ = instance
@@ -131,7 +133,7 @@ func getRevertReason(receipt *types.Receipt) (string, error) {
 	for _, receiptLog := range receipt.Logs {
 		if len(receiptLog.Topics) > 0 && bytes.Equal(receiptLog.Topics[0].Bytes(), revertEventSig) {
 			if len(receiptLog.Data) < 32 {
-				return "", fmt.Errorf("Invalid event data")
+				return "", fmt.Errorf("invalid event data")
 			}
 
 			// Extract the revert reason from the event data

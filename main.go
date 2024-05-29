@@ -20,8 +20,7 @@ func setUp() {
 
 func main() {
 	setUp()
-	compile.SolC(structs.ContractName)
+	compile.Run(structs.ContractName)
 	deploy.Run()
 	verify.Run(structs.ContractName)
-	//code.Run() //<--Base.sol
 }
