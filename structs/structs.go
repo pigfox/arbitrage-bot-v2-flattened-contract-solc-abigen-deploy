@@ -4,8 +4,6 @@ import (
 	"math/big"
 )
 
-const ContractName string = "Pigfox" //file name w/o _flat or .sol
-
 var OnChainContract DeployedContract
 
 type DeployedContract struct {

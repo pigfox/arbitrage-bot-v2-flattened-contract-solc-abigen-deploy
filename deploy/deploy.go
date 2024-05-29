@@ -83,7 +83,8 @@ func Run() {
 	fmt.Println("auth.GasPrice: ", auth.GasPrice)
 	fmt.Println("nonce: ", auth.Nonce)
 
-	address, tx, instance, err := api.DeployPigfox(auth, connection.RPC.Client)
+	//address, tx, instance, err := api.DeployPigfox(auth, connection.RPC.Client)
+	address, tx, instance, err := api.DeployBase(auth, connection.RPC.Client)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
