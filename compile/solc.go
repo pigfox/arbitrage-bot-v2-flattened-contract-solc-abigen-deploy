@@ -53,3 +53,5 @@ func Run(filename string) {
 	//mergedFiles(outputDir, apiDir, generatedFileName, generatedPackageName)
 	baseFile(outputDir, apiDir, generatedFileName, generatedPackageName)
 }
+
+//both the baseFile and mergedFiles functions are failing
