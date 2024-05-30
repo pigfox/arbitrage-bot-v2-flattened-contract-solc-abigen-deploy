@@ -16,6 +16,7 @@ import (
 	"github.com/jimlawless/whereami"
 	"log"
 	"math/big"
+	"time"
 )
 
 func Run() {
@@ -102,12 +103,13 @@ func Run() {
 	structs.OnChainContract.Gas = tx.Gas()
 	structs.OnChainContract.GasPrice = tx.GasPrice()
 
-	fmt.Println("Waiting to be mined...")
+	fmt.Println("Deployment waiting to be mined...")
+	startTime := time.Now()
 	receipt, err := bind.WaitMined(context.Background(), connection.RPC.Client, tx)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
-	fmt.Println("Mined...")
+	fmt.Println("Deployment mining took", time.Since(startTime))
 
 	if receipt.Status == types.ReceiptStatusSuccessful {
 		fmt.Println("Token deployed successfully")

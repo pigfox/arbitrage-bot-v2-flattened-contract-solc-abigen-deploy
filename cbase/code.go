@@ -62,10 +62,12 @@ func Run() {
 	}
 	fmt.Printf("SetQ transaction hash: %s\n", tx.Hash().Hex())
 
+	startTime := time.Now()
 	receipt, err := waitForTransaction(connection.RPC.Client, tx.Hash())
 	if err != nil {
 		log.Fatalf("Error waiting for transaction: %+v", err)
 	}
+	fmt.Println("Transaction mining took", time.Since(startTime))
 	customReceipt := ConvertEthReceiptToCustomReceipt(receipt)
 	fmt.Printf("Transaction Receipt: %+v\n", customReceipt)
 
