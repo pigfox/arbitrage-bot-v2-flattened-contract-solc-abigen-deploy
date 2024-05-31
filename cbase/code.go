@@ -1,5 +1,6 @@
 package cbase
 
+/*
 import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/api"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
@@ -108,3 +109,4 @@ func waitForTransaction(client *ethclient.Client, txHash common.Hash) (*types.Re
 		}
 	}
 }
+*/

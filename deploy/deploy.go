@@ -5,6 +5,7 @@ import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/structs"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/util"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"bytes"
 	"context"
@@ -19,7 +20,7 @@ import (
 	"time"
 )
 
-func Run() {
+func Run(contractName string) {
 	fmt.Println("Contract deploying...")
 	privateKey, err := crypto.HexToECDSA(wallet.Sepolia.PrivateKey)
 	if err != nil {
@@ -58,18 +59,20 @@ func Run() {
 	auth.Value = big.NewInt(0)
 	auth.GasPrice = suggestedGasPrice
 
-	contractByteLength := 15429
-	//gasLimit calculation below
+	contractByteLength := util.ContractByteLength(contractName)
+	fmt.Println("contractByteLength: ", contractByteLength)
+	//contractByteLength = 15429
 	//https://ethereum.stackexchange.com/questions/39401/how-do-you-calculate-gas-limit-for-transaction-with-data-in-ethereum
 	gasLimit := 21000 + (68 * contractByteLength)
 	auth.GasLimit = uint64(gasLimit)
 	fmt.Println("auth.GasLimit: ", auth.GasLimit)
 
 	blockGasLimit := getBlockGasLimit()
-	if blockGasLimit < auth.GasLimit {
+	if auth.GasLimit < blockGasLimit {
 		auth.GasLimit = blockGasLimit
 		fmt.Println("using block gas limit: ", blockGasLimit)
 	}
+	fmt.Println("blockGasLimit: ", blockGasLimit)
 
 	gasLimitBigInt := new(big.Int).SetUint64(auth.GasLimit)
 	calculatedCost := new(big.Int).Mul(gasLimitBigInt, auth.GasPrice)

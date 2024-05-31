@@ -1,7 +1,6 @@
 package main
 
 import (
-	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/cbase"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/compile"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
@@ -22,9 +21,12 @@ func setUp() {
 func main() {
 	setUp()
 	compile.Run(contractName)
-	deploy.Run()
+	deploy.Run(contractName)
 	verify.Run(contractName)
-	if contractName == "Base" {
-		cbase.Run()
-	}
+	/*
+		if contractName == "Base" {
+			cbase.Run()
+		}
+
+	*/
 }

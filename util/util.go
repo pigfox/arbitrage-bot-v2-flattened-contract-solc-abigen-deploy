@@ -57,3 +57,14 @@ func EmptyFolder(folderPath string) error {
 	}
 	return nil
 }
+
+func ContractByteLength(contract string) int {
+	filePath := GetCurrentPath() + "/solc-output/" + contract + ".abi"
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Println("Error reading file:", err)
+		return 0
+	}
+
+	return len(data)
+}

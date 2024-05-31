@@ -16,19 +16,19 @@ func Run(filename string) {
 	apiDir := currentPath + "/api"                                    // Directory to store generated Go bindings
 	generatedFileName := filename
 	generatedPackageName := "api"
+	/*
+		err := util.EmptyFolder(outputDir)
+		if err != nil {
+			log.Fatalf(" %v\n: %s can't empty folder", err, outputDir)
+		}
 
-	err := util.EmptyFolder(outputDir)
-	if err != nil {
-		log.Fatalf(" %v\n: %s can't empty folder", err, outputDir)
-	}
-
-	err = util.EmptyFolder(apiDir)
-	if err != nil {
-		log.Fatalf(" %v\n: %s can't empty folder", err, apiDir)
-	}
-
+		err = util.EmptyFolder(apiDir)
+		if err != nil {
+			log.Fatalf(" %v\n: %s can't empty folder", err, apiDir)
+		}
+	*/
 	// Ensure output and API directories exist
-	err = os.MkdirAll(outputDir, os.ModePerm)
+	err := os.MkdirAll(outputDir, os.ModePerm)
 	if err != nil {
 		log.Fatalf(" %v\n: %s not writable", err, outputDir)
 	}
