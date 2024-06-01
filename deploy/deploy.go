@@ -61,7 +61,11 @@ func Run(contractName string) {
 
 	contractByteLength := util.ContractByteLength(contractName)
 	fmt.Println("contractByteLength: ", contractByteLength)
-	//contractByteLength = 15429
+	/*
+		1349 May 31 11:32 Base.abi
+		2856 May 31 11:32 Base.bin
+	*/
+	contractByteLength = 15429
 	//https://ethereum.stackexchange.com/questions/39401/how-do-you-calculate-gas-limit-for-transaction-with-data-in-ethereum
 	gasLimit := 21000 + (68 * contractByteLength)
 	auth.GasLimit = uint64(gasLimit)

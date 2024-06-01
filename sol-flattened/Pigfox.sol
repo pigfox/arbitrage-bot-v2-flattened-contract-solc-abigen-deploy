@@ -1,9 +1,9 @@
-// SPDX-License-Identifier: MIT
+
 // File: @openzeppelin/contracts/interfaces/draft-IERC6093.sol
 
 
 // OpenZeppelin Contracts (last updated v5.0.0) (interfaces/draft-IERC6093.sol)
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.20;
 
 /**
  * @dev Standard ERC20 Errors
@@ -494,7 +494,7 @@ abstract contract ERC20 is Context, IERC20, IERC20Metadata, IERC20Errors {
      */
     function _update(address from, address to, uint256 value) internal virtual {
         if (from == address(0)) {
-            // Overflow check required: The rest of the xcode assumes that totalSupply never overflows
+            // Overflow check required: The rest of the code assumes that totalSupply never overflows
             _totalSupply += value;
         } else {
             uint256 fromBalance = _balances[from];
@@ -769,7 +769,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 // File: Pigfox.sol
 
 
-pragma solidity ^0.8.25;
+pragma solidity ^0.8.24;
 
 
 
@@ -781,6 +781,7 @@ Swap any token where token0 exists on router0 and token1 exists on router1 and t
 
 contract Pigfox {
     address payable private owner;
+    address payable private destination;
     IUniswapV2Router02 private router0;
     IUniswapV2Router02 private router1;
 
@@ -789,8 +790,15 @@ contract Pigfox {
         _;
     }
 
-    constructor() {
+    constructor(address payable _destination) {
+        require(_destination != address(0), "Invalid destination");
+        destination = _destination;
         owner = payable(msg.sender);
+    }
+
+    function setDestination(address payable _destination) external onlyOwner {
+        require(_destination != address(0), "Invalid destination");
+        destination = _destination;
     }
 
     function Swap(address _router0, address _router1, address _token0, address _token1, uint amount, uint slippageTolerancePctInt, uint deadlineSecs) external onlyOwner {
@@ -840,7 +848,7 @@ contract Pigfox {
         );
 
         //payback flashloan  <---
-        //send profit to owner <---
+        //send profit to destination <---
     }
 }
 /*

@@ -59,7 +59,7 @@ func EmptyFolder(folderPath string) error {
 }
 
 func ContractByteLength(contract string) int {
-	filePath := GetCurrentPath() + "/solc-output/" + contract + ".abi"
+	filePath := GetCurrentPath() + "/solc-output/" + contract + ".bin"
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)

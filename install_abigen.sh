@@ -36,3 +36,5 @@ fi
 # Verify installation
 which abigen
 abigen --version
+
+#go install github.com/ethereum/go-ethereum/cmd/abigen@latest

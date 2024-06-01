@@ -1,6 +1,5 @@
 .env
-sepolia.txt
 /tmp
-../arbitrage-bot-v2-remix/Pigfox.sol
-sol/artifacts/
-
+arbitrage-bot-v2-flattened-contract-solc-abigen-deploy
+sol/
+remix.txt
