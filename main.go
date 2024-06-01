@@ -18,8 +18,7 @@ func setUp() {
 
 func main() {
 	setUp()
-	//compile.Run(contractName)
-	compile.Docker("Base", "0.8.24")
+	compile.Run("Base", "0.8.24")
 	//deploy.Run(contractName)
 	//verify.Run(contractName)
 	/*

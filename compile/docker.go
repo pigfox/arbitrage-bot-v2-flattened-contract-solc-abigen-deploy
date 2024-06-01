@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-func Docker(contract, version string) {
+func Run(contract, version string) {
 	cwd, err := os.Getwd()
 	if err != nil {
 		log.Fatalf("Failed to get current working directory: %v", err)
