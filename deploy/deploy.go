@@ -37,32 +37,27 @@ func Run(contractName string) {
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
-	/*
-		pendingBalance, err := connection.RPC.Client.PendingBalanceAt(context.Background(), fromAddress)
-		if err != nil {
-			log.Fatal(err.Error() + " " + whereami.WhereAmI())
-		}
-		fmt.Println("pendingBalance: ", pendingBalance)
-	*/
-	// Set the gas price and gas limit
+
+	pendingBalance, err := connection.RPC.Client.PendingBalanceAt(context.Background(), fromAddress)
+	if err != nil {
+		log.Fatal(err.Error() + " " + whereami.WhereAmI())
+	}
+	fmt.Println("pendingBalance: ", pendingBalance)
+
 	suggestedGasPrice, err := connection.RPC.Client.SuggestGasPrice(context.Background())
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
+	// Increase the gas price by 20%
+	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(20))
+	//actualGasPrice = new(big.Int).Div(actualGasPrice, big.NewInt(10))
+
 	fmt.Println("suggestedGasPrice: ", suggestedGasPrice)
-	/*
-		auth, err := bind.NewKeyedTransactorWithChainID(privateKey, config.Map[config.Active].ChainID)
-		if err != nil {
-			log.Fatal(err.Error() + " " + whereami.WhereAmI())
-		}
-	*/
-	/*
-		1349 May 31 11:32 Base.abi
-		2856 May 31 11:32 Base.bin
-	*/
+	fmt.Println("actualGasPrice: ", actualGasPrice)
+
 	//https://ethereum.stackexchange.com/questions/39401/how-do-you-calculate-gas-limit-for-transaction-with-data-in-ethereum
 	contractString := util.ContractBytes(contractName)
-	fmt.Println("contractString: ", contractString)
+	//fmt.Println("contractString: ", contractString)
 	contractBytecode := common.FromHex(contractString)
 
 	// Estimate gas limit
@@ -70,7 +65,7 @@ func Run(contractName string) {
 		From:     fromAddress,
 		To:       nil, // To is nil for contract deployment
 		Gas:      0,
-		GasPrice: suggestedGasPrice,
+		GasPrice: actualGasPrice,
 		Value:    big.NewInt(0),
 		Data:     contractBytecode,
 	}
@@ -80,10 +75,9 @@ func Run(contractName string) {
 		log.Fatalf("Failed to estimate gas: %v", err)
 	}
 
-	fmt.Printf("Gas Price: %s\n", suggestedGasPrice.String())
+	fmt.Printf("Gas Price: %s\n", actualGasPrice.String())
 	fmt.Printf("Gas Limit: %d\n", gasLimit)
 
-	// Example of creating a transaction for contract deployment
 	chainID, err := connection.RPC.Client.NetworkID(context.Background())
 	if err != nil {
 		log.Fatalf("Failed to get network ID: %v", err)
@@ -94,7 +88,7 @@ func Run(contractName string) {
 		To:       nil,
 		Value:    big.NewInt(0),
 		Gas:      gasLimit,
-		GasPrice: suggestedGasPrice,
+		GasPrice: actualGasPrice,
 		Data:     contractBytecode})
 
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
@@ -108,36 +102,12 @@ func Run(contractName string) {
 		log.Fatalf("Failed to send transaction: %v", err)
 	}
 
-	/*
-			blockGasLimit := getBlockGasLimit()
-			fmt.Println("blockGasLimit: ", blockGasLimit)
-			if auth.GasLimit < blockGasLimit {
-				auth.GasLimit = blockGasLimit
-				fmt.Println("using block gas limit: ", blockGasLimit)
-			}
-
-			auth.Nonce = big.NewInt(int64(nonce))
-			auth.Value = big.NewInt(0)
-			auth.GasPrice = util.AddPercentBigInt(suggestedGasPrice, 30)
-
-			fmt.Println("auth.GasLimit: ", auth.GasLimit)
-			fmt.Println("auth.GasPrice: ", auth.GasPrice)
-			fmt.Println("nonce: ", auth.Nonce)
-
-			//address, tx, instance, err := api.DeployPigfox(auth, connection.RPC.Client)
-			address, tx, instance, err := api.DeployBase(auth, connection.RPC.Client)
-			if err != nil {
-				log.Fatal(err.Error() + " " + whereami.WhereAmI())
-			}
-
-		structs.OnChainContract.Address = address.Hex()
-		structs.OnChainContract.TxHash = tx.Hash().Hex()
-		structs.OnChainContract.TxCost = tx.Cost()
-		structs.OnChainContract.Gas = tx.Gas()
-		structs.OnChainContract.GasPrice = tx.GasPrice()
-	*/
 	fmt.Println(signedTx.Hash().Hex(), "waiting to be mined...")
+	go network(signedTx.Hash().Hex())
+	//ctx, cancel := context.WithTimeout(context.Background(), 1*time.Hour)
+	//defer cancel()
 	startTime := time.Now()
+	//receipt, err := bind.WaitMined(ctx, connection.RPC.Client, signedTx)
 	receipt, err := bind.WaitMined(context.Background(), connection.RPC.Client, signedTx)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
@@ -158,8 +128,6 @@ func Run(contractName string) {
 		}
 		log.Fatal(reason + " " + whereami.WhereAmI())
 	}
-
-	//_ = instance
 }
 
 func getRevertReason(receipt *types.Receipt) (string, error) {
