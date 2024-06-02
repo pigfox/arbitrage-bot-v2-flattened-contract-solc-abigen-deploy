@@ -68,3 +68,14 @@ func ContractByteLength(contract string) int {
 
 	return len(data)
 }
+
+func ContractBytes(contract string) string {
+	filePath := GetCurrentPath() + "/solc-output/" + contract + ".bin"
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		log.Fatal("Error reading file:", err)
+		return ""
+	}
+
+	return string(data)
+}
