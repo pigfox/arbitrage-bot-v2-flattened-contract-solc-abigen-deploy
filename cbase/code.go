@@ -1,6 +1,6 @@
 package cbase
 
-/*
+/**/
 import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/api"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
@@ -36,7 +36,7 @@ func Run() {
 		log.Fatalf("Failed to create authorized transactor: %v", err)
 	}
 
-	contractAddress := common.HexToAddress(structs.OnChainContract.Address)
+	contractAddress := common.HexToAddress(structs.OnChainContract.Receipt.Address)
 	instance, err := api.NewBase(contractAddress, connection.RPC.Client)
 	if err != nil {
 		log.Fatalf("Failed to bind to Base contract: %v", err)
@@ -109,4 +109,3 @@ func waitForTransaction(client *ethclient.Client, txHash common.Hash) (*types.Re
 		}
 	}
 }
-*/

@@ -2,6 +2,7 @@ package deploy
 
 import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/structs"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/util"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"bytes"
@@ -113,14 +114,20 @@ func Run(contractName string) {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
 	fmt.Println("Mining took", time.Since(startTime))
-	//fmt.Println("Token deployed at:", tx.address)
 	fmt.Println("Token tx:", tx.Hash())
 	fmt.Println("Token cost:", tx.Cost())
 	fmt.Println("Token gas limit:", tx.Gas())
 	fmt.Println("Token gas price:", tx.GasPrice())
+	structs.OnChainContract.Tx.GasLimit = tx.Gas()
+	structs.OnChainContract.Tx.GasPrice = tx.GasPrice()
+	structs.OnChainContract.Tx.Hash = tx.Hash().Hex()
+	structs.OnChainContract.Tx.Cost = tx.Cost()
 
 	if receipt.Status == types.ReceiptStatusSuccessful {
-		fmt.Println("Token deployed successfully")
+		structs.OnChainContract.Receipt.Address = receipt.ContractAddress.Hex()
+		structs.OnChainContract.Receipt.GasUsed = receipt.GasUsed
+		structs.OnChainContract.Receipt.Hash = receipt.TxHash.Hex()
+		fmt.Println("Token deployed successfully at", receipt.ContractAddress)
 	} else {
 		reason, err := getRevertReason(receipt)
 		if err != nil {

@@ -30,7 +30,6 @@ func network(txHashStr string) {
 	txHash := common.HexToHash(txHashStr)
 
 	// Check if the transaction is still in the pool
-	// Check if the transaction is still in the pool
 	_, isPending, err := connection.RPC.Client.TransactionByHash(context.Background(), txHash) //tx
 	if err == ethereum.NotFound {
 		fmt.Printf("Transaction %s not found\n", txHash.Hex())

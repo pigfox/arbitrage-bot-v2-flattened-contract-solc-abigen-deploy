@@ -7,9 +7,20 @@ import (
 var OnChainContract DeployedContract
 
 type DeployedContract struct {
-	Address  string
-	TxHash   string
-	TxCost   *big.Int
-	Gas      uint64
+	Receipt TxReceipt
+	Tx      Transaction
+}
+
+type TxReceipt struct {
+	Address string
+	Hash    string
+	Status  string
+	GasUsed uint64
+}
+
+type Transaction struct {
 	GasPrice *big.Int
+	GasLimit uint64
+	Cost     *big.Int
+	Hash     string
 }
