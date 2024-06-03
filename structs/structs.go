@@ -16,6 +16,7 @@ type TxReceipt struct {
 	Hash    string
 	Status  string
 	GasUsed uint64
+	Block   *big.Int
 }
 
 type Transaction struct {

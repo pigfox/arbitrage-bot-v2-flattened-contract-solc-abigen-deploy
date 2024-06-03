@@ -127,6 +127,7 @@ func Run(contractName string) {
 		structs.OnChainContract.Receipt.Address = receipt.ContractAddress.Hex()
 		structs.OnChainContract.Receipt.GasUsed = receipt.GasUsed
 		structs.OnChainContract.Receipt.Hash = receipt.TxHash.Hex()
+		structs.OnChainContract.Receipt.Block = receipt.BlockNumber
 		fmt.Println("Token deployed successfully at", receipt.ContractAddress)
 	} else {
 		reason, err := getRevertReason(receipt)

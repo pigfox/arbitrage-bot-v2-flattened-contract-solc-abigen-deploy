@@ -14,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+
 	"log"
 	"math/big"
 	"time"
@@ -50,7 +51,7 @@ func Run() {
 	}
 	fmt.Printf("Add result: %d\n", result)
 
-	resultConcat, err := instance.Concat(nil, "qwBBBBBhuguty")
+	resultConcat, err := instance.Concat(nil, time.Now().String())
 	if err != nil {
 		log.Fatalf("Failed to execute Concat: %v", err)
 	}
