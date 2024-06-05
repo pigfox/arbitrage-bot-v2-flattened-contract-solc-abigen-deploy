@@ -6,24 +6,25 @@ import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/deploy"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/structs"
-	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/verify"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"fmt"
 )
 
 func setUp() {
 	fmt.Println("Setting up...")
+	structs.SetUp()
 	wallet.SetUp()
 	config.SetUp(config.Sepolia)
 	connection.SetUp()
 }
 
 func main() {
-	contractName := "Trade" //file name w/o _flat or .sol
 	setUp()
-	compile.Run(contractName, "0.8.20", "london")
-	deploy.Run(contractName)
-	verify.Run(contractName)
+	contractName := "Trade" //file name w/o _flat or .sol
+	params := structs.DeploymentParams[contractName]
+	compile.Run(params.Name, params.CompileVersion, params.EVM)
+	deploy.Run(params.Name)
+	//verify.Run(params.Name)
 	//cbase.Run()
 
 	fmt.Println(fmt.Sprintf("+%v", structs.OnChainContract))

@@ -74,7 +74,7 @@ func Run(contractName string) {
 	gasLimit, err := connection.RPC.Client.EstimateGas(context.Background(), msg)
 	if err != nil {
 		log.Printf("Failed to estimate gas: %v", err)
-		gasLimit = 3000000
+		gasLimit = getBlockGasLimit()
 	}
 
 	fmt.Printf("Gas Price: %s\n", actualGasPrice.String())
@@ -135,7 +135,13 @@ func Run(contractName string) {
 		if err != nil {
 			log.Fatal(err.Error() + whereami.WhereAmI())
 		}
-		log.Fatal(reason + " " + whereami.WhereAmI())
+
+		if len(reason) == 0 {
+			fmt.Println("No receipt reason found " + whereami.WhereAmI())
+			network(receipt.TxHash.Hex())
+		} else {
+			log.Fatal(reason + " " + whereami.WhereAmI())
+		}
 	}
 }
 

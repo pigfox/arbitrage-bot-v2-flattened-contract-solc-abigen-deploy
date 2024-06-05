@@ -4,6 +4,7 @@ import (
 	"math/big"
 )
 
+var DeploymentParams map[string]DeploymentParam
 var OnChainContract DeployedContract
 
 type DeployedContract struct {
@@ -24,4 +25,10 @@ type Transaction struct {
 	GasLimit uint64
 	Cost     *big.Int
 	Hash     string
+}
+
+type DeploymentParam struct {
+	Name           string
+	EVM            string
+	CompileVersion string
 }
