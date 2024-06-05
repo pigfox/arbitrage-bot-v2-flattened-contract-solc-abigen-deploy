@@ -20,4 +20,9 @@ func SetUp() {
 		EVM:            "cancun",
 		CompileVersion: "0.8.24",
 	}
+	DeploymentParams["Pigfox"] = DeploymentParam{
+		Name:           "Pigfox",
+		EVM:            "london",
+		CompileVersion: "0.8.20",
+	}
 }

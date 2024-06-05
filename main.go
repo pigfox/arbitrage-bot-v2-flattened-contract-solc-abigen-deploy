@@ -20,7 +20,7 @@ func setUp() {
 
 func main() {
 	setUp()
-	contractName := "Trade" //file name w/o _flat or .sol
+	contractName := "Pigfox" //file name w/o _flat or .sol
 	params := structs.DeploymentParams[contractName]
 	compile.Run(params.Name, params.CompileVersion, params.EVM)
 	deploy.Run(params.Name)
