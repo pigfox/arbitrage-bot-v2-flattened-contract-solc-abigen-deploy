@@ -50,7 +50,7 @@ func Run(contractName string) {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
 	// Increase the gas price by 20%
-	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(20))
+	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(10))
 	//actualGasPrice = new(big.Int).Div(actualGasPrice, big.NewInt(10))
 
 	fmt.Println("suggestedGasPrice: ", suggestedGasPrice)
@@ -73,7 +73,8 @@ func Run(contractName string) {
 
 	gasLimit, err := connection.RPC.Client.EstimateGas(context.Background(), msg)
 	if err != nil {
-		log.Fatalf("Failed to estimate gas: %v", err)
+		log.Printf("Failed to estimate gas: %v", err)
+		gasLimit = 3000000
 	}
 
 	fmt.Printf("Gas Price: %s\n", actualGasPrice.String())

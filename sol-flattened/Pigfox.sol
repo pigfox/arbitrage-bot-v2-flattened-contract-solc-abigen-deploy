@@ -1,9 +1,8 @@
-
+// SPDX-License-Identifier: MIT
 // File: @openzeppelin/contracts/interfaces/draft-IERC6093.sol
 
 
 // OpenZeppelin Contracts (last updated v5.0.0) (interfaces/draft-IERC6093.sol)
-pragma solidity ^0.8.20;
 
 /**
  * @dev Standard ERC20 Errors
@@ -168,7 +167,7 @@ interface IERC1155Errors {
 
 // OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)
 
-pragma solidity ^0.8.20;
+
 
 /**
  * @dev Provides information about the current execution context, including the
@@ -199,7 +198,7 @@ abstract contract Context {
 
 // OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/IERC20.sol)
 
-pragma solidity ^0.8.20;
+
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP.
@@ -281,7 +280,7 @@ interface IERC20 {
 
 // OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/extensions/IERC20Metadata.sol)
 
-pragma solidity ^0.8.20;
+
 
 
 /**
@@ -309,7 +308,7 @@ interface IERC20Metadata is IERC20 {
 
 // OpenZeppelin Contracts (last updated v5.0.0) (token/ERC20/ERC20.sol)
 
-pragma solidity ^0.8.20;
+
 
 
 
@@ -502,19 +501,19 @@ abstract contract ERC20 is Context, IERC20, IERC20Metadata, IERC20Errors {
                 revert ERC20InsufficientBalance(from, fromBalance, value);
             }
             unchecked {
-                // Overflow not possible: value <= fromBalance <= totalSupply.
+            // Overflow not possible: value <= fromBalance <= totalSupply.
                 _balances[from] = fromBalance - value;
             }
         }
 
         if (to == address(0)) {
             unchecked {
-                // Overflow not possible: value <= totalSupply or value <= fromBalance <= totalSupply.
+            // Overflow not possible: value <= totalSupply or value <= fromBalance <= totalSupply.
                 _totalSupply -= value;
             }
         } else {
             unchecked {
-                // Overflow not possible: balance + value is at most totalSupply, which we know fits into a uint256.
+            // Overflow not possible: balance + value is at most totalSupply, which we know fits into a uint256.
                 _balances[to] += value;
             }
         }
@@ -624,8 +623,6 @@ abstract contract ERC20 is Context, IERC20, IERC20Metadata, IERC20Errors {
 
 // File: @uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol
 
-pragma solidity >=0.6.2;
-
 interface IUniswapV2Router01 {
     function factory() external pure returns (address);
     function WETH() external pure returns (address);
@@ -699,19 +696,19 @@ interface IUniswapV2Router01 {
         uint deadline
     ) external returns (uint[] memory amounts);
     function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline)
-        external
-        payable
-        returns (uint[] memory amounts);
+    external
+    payable
+    returns (uint[] memory amounts);
     function swapTokensForExactETH(uint amountOut, uint amountInMax, address[] calldata path, address to, uint deadline)
-        external
-        returns (uint[] memory amounts);
+    external
+    returns (uint[] memory amounts);
     function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline)
-        external
-        returns (uint[] memory amounts);
+    external
+    returns (uint[] memory amounts);
     function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline)
-        external
-        payable
-        returns (uint[] memory amounts);
+    external
+    payable
+    returns (uint[] memory amounts);
 
     function quote(uint amountA, uint reserveA, uint reserveB) external pure returns (uint amountB);
     function getAmountOut(uint amountIn, uint reserveIn, uint reserveOut) external pure returns (uint amountOut);
@@ -769,7 +766,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 // File: Pigfox.sol
 
 
-pragma solidity ^0.8.24;
+
 
 
 
@@ -840,7 +837,7 @@ contract Pigfox {
 
         // Execute the second swap
         router1.swapExactTokensForTokens(
-            amountB, 
+            amountB,
             amountOutMin2,
             pair2,
             address(this),

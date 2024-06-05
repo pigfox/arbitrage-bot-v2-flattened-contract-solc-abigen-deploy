@@ -1,7 +1,6 @@
 package main
 
 import (
-	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/cbase"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/compile"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/config"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
@@ -12,7 +11,6 @@ import (
 	"fmt"
 )
 
-var contractName string = "Base" //file name w/o _flat or .sol
 func setUp() {
 	fmt.Println("Setting up...")
 	wallet.SetUp()
@@ -21,11 +19,12 @@ func setUp() {
 }
 
 func main() {
+	contractName := "Trade" //file name w/o _flat or .sol
 	setUp()
-	compile.Run(contractName, "0.8.24")
+	compile.Run(contractName, "0.8.20", "london")
 	deploy.Run(contractName)
 	verify.Run(contractName)
-	cbase.Run()
+	//cbase.Run()
 
 	fmt.Println(fmt.Sprintf("+%v", structs.OnChainContract))
 }
