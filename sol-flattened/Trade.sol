@@ -93,10 +93,10 @@ contract Trade {
         _;
     }
 
-    constructor(){
+    constructor(uint _transferThreshold){
         owner = msg.sender;
         profitDestination = msg.sender;
-        transferThreshold = 0;
+        transferThreshold = _transferThreshold;
     }
 
     function setOwner(address _owner) external onlyOwner{
@@ -138,5 +138,17 @@ contract Trade {
         destinationDex.deposit(_amount);
 
         emit SwapExecuted(msg.sender, _amount, _sourceDexAddress, _destinationDexAddress);
+    }
+
+    function getTransferThreshold() external view returns(uint){
+        return transferThreshold;
+    }
+
+    function getProfitDestination() external view returns(address){
+        return profitDestination;
+    }
+
+    function getOwner() external view returns(address){
+        return owner;
     }
 }
