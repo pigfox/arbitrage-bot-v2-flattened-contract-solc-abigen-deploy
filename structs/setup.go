@@ -25,4 +25,14 @@ func SetUp() {
 		EVM:            "london",
 		CompileVersion: "0.8.20",
 	}
+	DeploymentParams["Dex"] = DeploymentParam{
+		Name:           "Dex",
+		EVM:            "london",
+		CompileVersion: "0.8.20",
+	}
+	DeploymentParams["Base"] = DeploymentParam{
+		Name:           "Base",
+		EVM:            "cancun",
+		CompileVersion: "0.8.24",
+	}
 }

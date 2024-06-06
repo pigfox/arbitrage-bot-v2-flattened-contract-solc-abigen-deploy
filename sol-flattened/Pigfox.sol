@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 // File: @openzeppelin/contracts/interfaces/draft-IERC6093.sol
 
 
@@ -718,8 +719,6 @@ interface IUniswapV2Router01 {
 }
 
 // File: @uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol
-
-pragma solidity >=0.6.2;
 
 
 interface IUniswapV2Router02 is IUniswapV2Router01 {

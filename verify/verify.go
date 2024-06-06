@@ -13,30 +13,34 @@ import (
 func Run(contractName string) {
 	fmt.Println("Contract verifying...")
 	contractAddress := common.HexToAddress(structs.OnChainContract.Receipt.Address)
-	addressBytecode, err := connection.RPC.Client.CodeAt(context.Background(), contractAddress, structs.OnChainContract.Receipt.Block) // nil is the latest block
+	deployedBytecode, err := connection.RPC.Client.CodeAt(context.Background(), contractAddress, structs.OnChainContract.Receipt.Block) // nil is the latest block
 	if err != nil {
-		log.Fatalf("Failed to get contract addressBytecode: %v", err)
+		log.Fatalf("Failed to get contract deployedBytecode: %v", err)
 	}
 
-	if len(addressBytecode) == 0 {
+	if len(deployedBytecode) == 0 {
 		log.Fatalf("No contract xcode found at the given address")
 	}
 
-	fmt.Printf("Compilded addressBytecode: %x\n", addressBytecode)
+	fmt.Printf("Compiled deployedBytecode: %x\n", deployedBytecode)
 	fmt.Println("-----------------------------------------------------------------")
 
 	rawCompiledBytecode := getBin(contractName)
-	fmt.Printf("Compilded rawCompiledBytecode: %x\n", rawCompiledBytecode)
+	fmt.Printf("Compiled rawCompiledBytecode: %x\n", rawCompiledBytecode)
 	fmt.Println("-----------------------------------------------------------------")
 	compiledBytecodeBytes := common.FromHex(rawCompiledBytecode)
-	fmt.Printf("Compilded compiledBytecodeBytes: %x\n", compiledBytecodeBytes)
+	fmt.Printf("Compiled compiledBytecodeBytes: %x\n", compiledBytecodeBytes)
 	fmt.Println("-----------------------------------------------------------------")
 
-	if string(addressBytecode) == string(compiledBytecodeBytes) {
-		fmt.Println("The deployed contract addressBytecode matches the compiledBytecodeBytes.")
+	if string(deployedBytecode) == string(compiledBytecodeBytes) {
+		fmt.Println("The deployedBytecode matches the compiledBytecodeBytes.")
+	} else if string(deployedBytecode) == rawCompiledBytecode {
+		fmt.Println("The deployedBytecode matches the rawCompiledBytecode.")
 	} else {
-		fmt.Println("The deployed contract addressBytecode does not match the compiledBytecodeBytes.")
-		fmt.Println("Length deployed contract addressBytecode", len(string(addressBytecode)), "Length compiled addressBytecode", len(string(compiledBytecodeBytes)))
+		fmt.Println("The deployedBytecode does not match the compiledBytecodeBytes or the rawCompiledBytecode.")
+		fmt.Println("Length compiled deployedBytecode", len(string(deployedBytecode)))
+		fmt.Println("Length compiled compiledBytecodeBytes", len(string(compiledBytecodeBytes)))
+		fmt.Println("Length compiled  rawCompiledBytecode", len(rawCompiledBytecode))
 	}
 }
 

@@ -6,6 +6,7 @@ import (
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/connection"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/deploy"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/structs"
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/verify"
 	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/wallet"
 	"fmt"
 )
@@ -20,11 +21,11 @@ func setUp() {
 
 func main() {
 	setUp()
-	contractName := "Pigfox" //file name w/o _flat or .sol
+	contractName := "Base" //file name w/o _flat or .sol
 	params := structs.DeploymentParams[contractName]
 	compile.Run(params.Name, params.CompileVersion, params.EVM)
 	deploy.Run(params.Name)
-	//verify.Run(params.Name)
+	verify.Run(params.Name)
 	//cbase.Run()
 
 	fmt.Println(fmt.Sprintf("+%v", structs.OnChainContract))

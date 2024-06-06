@@ -21,6 +21,7 @@ import (
 )
 
 func Run(contractName string) {
+	value := big.NewInt(0)
 	fmt.Println("Contract deploying...")
 	privateKey, err := crypto.HexToECDSA(wallet.Sepolia.PrivateKey)
 	if err != nil {
@@ -43,14 +44,13 @@ func Run(contractName string) {
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
-	fmt.Println("pendingBalance: ", pendingBalance)
 
 	suggestedGasPrice, err := connection.RPC.Client.SuggestGasPrice(context.Background())
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
 	// Increase the gas price by 20%
-	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(10))
+	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(1))
 	//actualGasPrice = new(big.Int).Div(actualGasPrice, big.NewInt(10))
 
 	fmt.Println("suggestedGasPrice: ", suggestedGasPrice)
@@ -77,7 +77,16 @@ func Run(contractName string) {
 		gasLimit = getBlockGasLimit()
 	}
 
-	fmt.Printf("Gas Price: %s\n", actualGasPrice.String())
+	//check sufficient funds
+	cost := new(big.Int).Mul(actualGasPrice, big.NewInt(int64(gasLimit)))
+	fmt.Println("pendingBalance: ", pendingBalance)
+	fmt.Println("cost: ", cost)
+	fmt.Println("ETH cost: ", util.WeiToETH(cost))
+	if pendingBalance.Cmp(cost) < 0 { //pendingBalance < cost
+		fmt.Println("Insufficient funds, have ", pendingBalance, " need ", cost, " ", whereami.WhereAmI())
+	}
+
+	fmt.Printf("Gas Price Gwei: %s\n", actualGasPrice.String())
 	fmt.Printf("Gas Limit: %d\n", gasLimit)
 
 	chainID, err := connection.RPC.Client.NetworkID(context.Background())
@@ -88,7 +97,7 @@ func Run(contractName string) {
 	tx := types.NewTx(&types.LegacyTx{
 		Nonce:    nonce,
 		To:       nil,
-		Value:    big.NewInt(0),
+		Value:    value,
 		Gas:      gasLimit,
 		GasPrice: actualGasPrice,
 		Data:     contractBytecode})
@@ -106,16 +115,14 @@ func Run(contractName string) {
 
 	fmt.Println(signedTx.Hash().Hex(), "waiting to be mined...")
 	go network(signedTx.Hash().Hex())
-	//ctx, cancel := context.WithTimeout(context.Background(), 1*time.Hour)
-	//defer cancel()
 	startTime := time.Now()
-	//receipt, err := bind.WaitMined(ctx, connection.RPC.Client, signedTx)
+
 	receipt, err := bind.WaitMined(context.Background(), connection.RPC.Client, signedTx)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
 	fmt.Println("Mining took", time.Since(startTime))
-	fmt.Println("Token tx:", tx.Hash())
+	fmt.Println("Token tx:", tx.Hash(), "?????")
 	fmt.Println("Token cost:", tx.Cost())
 	fmt.Println("Token gas limit:", tx.Gas())
 	fmt.Println("Token gas price:", tx.GasPrice())
