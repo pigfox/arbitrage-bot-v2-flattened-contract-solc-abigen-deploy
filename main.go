@@ -21,11 +21,11 @@ func setUp() {
 
 func main() {
 	setUp()
-	contractName := "Base" //file name w/o _flat or .sol
+	contractName := "Nothing" //file name w/o _flat or .sol
 	params := structs.DeploymentParams[contractName]
-	compile.Run(params.Name, params.CompileVersion, params.EVM)
-	deploy.Run(params.Name)
-	verify.Run(params.Name)
+	compile.Run(params)
+	deploy.Run(params)
+	verify.Run(params)
 	//cbase.Run()
 
 	fmt.Println(fmt.Sprintf("+%v", structs.OnChainContract))

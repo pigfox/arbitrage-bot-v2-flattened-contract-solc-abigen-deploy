@@ -1,6 +1,7 @@
 package util
 
 import (
+	"arbitrage-bot-v2-flattened-contract-solc-abigen-deploy/constants"
 	"fmt"
 	"log"
 	"os"
@@ -69,8 +70,19 @@ func ContractByteLength(contract string) int {
 	return len(data)
 }
 
-func ContractBytes(contract string) string {
-	filePath := GetCurrentPath() + "/solc-output/" + contract + ".bin"
+func GetContractBIN(contract string) string {
+	filePath := GetCurrentPath() + "/" + constants.SolCOutputFolder + "/" + contract + ".bin"
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		log.Fatal("Error reading file:", err)
+		return ""
+	}
+
+	return string(data)
+}
+
+func GetContractABI(contract string) string {
+	filePath := GetCurrentPath() + "/" + constants.SolCOutputFolder + "/" + contract + ".abi"
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal("Error reading file:", err)

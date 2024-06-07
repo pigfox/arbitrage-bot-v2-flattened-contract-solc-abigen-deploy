@@ -28,7 +28,8 @@ type Transaction struct {
 }
 
 type DeploymentParam struct {
-	Name           string
-	EVM            string
-	CompileVersion string
+	Name                 string
+	EVM                  string
+	CompilerVersion      string
+	ConstructorArguments []interface{}
 }

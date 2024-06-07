@@ -13,9 +13,10 @@ func getBlockGasLimit() uint64 {
 		log.Fatal(err)
 	}
 	blockNumber := header.Number
+	_ = blockNumber
 
 	// Get the latest block
-	block, err := connection.RPC.Client.BlockByNumber(context.Background(), blockNumber)
+	block, err := connection.RPC.Client.BlockByNumber(context.Background(), nil)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -31,3 +31,10 @@ func WeiToETH(wei *big.Int) *big.Float {
 
 	return ethValue
 }
+
+func WeiToGwei(wei *big.Int) *big.Float {
+	weiFloat := new(big.Float).SetInt(wei)
+	gweiValue := new(big.Float).Quo(weiFloat, big.NewFloat(1000000000))
+
+	return gweiValue
+}

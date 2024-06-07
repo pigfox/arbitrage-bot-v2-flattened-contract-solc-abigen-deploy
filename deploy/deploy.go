@@ -10,6 +10,7 @@ import (
 	"crypto/ecdsa"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -17,10 +18,12 @@ import (
 	"github.com/jimlawless/whereami"
 	"log"
 	"math/big"
+	"strings"
 	"time"
 )
 
-func Run(contractName string) {
+func Run(params structs.DeploymentParam) {
+	fmt.Println(params)
 	value := big.NewInt(0)
 	fmt.Println("Contract deploying...")
 	privateKey, err := crypto.HexToECDSA(wallet.Sepolia.PrivateKey)
@@ -49,17 +52,33 @@ func Run(contractName string) {
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
-	// Increase the gas price by 20%
-	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(1))
+	actualGasPrice := new(big.Int).Mul(suggestedGasPrice, big.NewInt(20))
 	//actualGasPrice = new(big.Int).Div(actualGasPrice, big.NewInt(10))
 
 	fmt.Println("suggestedGasPrice: ", suggestedGasPrice)
 	fmt.Println("actualGasPrice: ", actualGasPrice)
 
 	//https://ethereum.stackexchange.com/questions/39401/how-do-you-calculate-gas-limit-for-transaction-with-data-in-ethereum
-	contractString := util.ContractBytes(contractName)
-	//fmt.Println("contractString: ", contractString)
+	contractString := util.GetContractBIN(params.Name)
+	fmt.Println("contractString: ", contractString)
 	contractBytecode := common.FromHex(contractString)
+
+	contractABI, err := abi.JSON(strings.NewReader(util.GetContractABI(params.Name)))
+	if err != nil {
+		log.Fatalf("Failed to parse the contract ABI: %v", err)
+	}
+	fmt.Println("contractABI: ", contractABI)
+	var data, constructorArguments []byte
+
+	constructorArguments, err = contractABI.Pack("") //
+	if err != nil {
+		log.Fatalf("Failed to pack constructor arguments: %v", err)
+	}
+
+	data = append(contractBytecode, constructorArguments...)
+
+	//fmt.Println("data: ", data)
+	//fmt.Println("data: ", string(data))
 
 	// Estimate gas limit
 	msg := ethereum.CallMsg{
@@ -67,8 +86,8 @@ func Run(contractName string) {
 		To:       nil, // To is nil for contract deployment
 		Gas:      0,
 		GasPrice: actualGasPrice,
-		Value:    big.NewInt(0),
-		Data:     contractBytecode,
+		Value:    value,
+		Data:     data,
 	}
 
 	gasLimit, err := connection.RPC.Client.EstimateGas(context.Background(), msg)
@@ -86,7 +105,7 @@ func Run(contractName string) {
 		fmt.Println("Insufficient funds, have ", pendingBalance, " need ", cost, " ", whereami.WhereAmI())
 	}
 
-	fmt.Printf("Gas Price Gwei: %s\n", actualGasPrice.String())
+	fmt.Printf("Gas Price Gwei: %d\n", util.WeiToGwei(actualGasPrice))
 	fmt.Printf("Gas Limit: %d\n", gasLimit)
 
 	chainID, err := connection.RPC.Client.NetworkID(context.Background())
@@ -100,7 +119,7 @@ func Run(contractName string) {
 		Value:    value,
 		Gas:      gasLimit,
 		GasPrice: actualGasPrice,
-		Data:     contractBytecode})
+		Data:     data})
 
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
 	if err != nil {
@@ -116,8 +135,9 @@ func Run(contractName string) {
 	fmt.Println(signedTx.Hash().Hex(), "waiting to be mined...")
 	go network(signedTx.Hash().Hex())
 	startTime := time.Now()
-
-	receipt, err := bind.WaitMined(context.Background(), connection.RPC.Client, signedTx)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Hour)
+	defer cancel()
+	receipt, err := bind.WaitMined(ctx, connection.RPC.Client, signedTx)
 	if err != nil {
 		log.Fatal(err.Error() + " " + whereami.WhereAmI())
 	}
