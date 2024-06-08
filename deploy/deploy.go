@@ -70,14 +70,19 @@ func Run(params structs.DeploymentParam) {
 	fmt.Println("contractABI: ", contractABI)
 	var data, constructorArguments []byte
 	if len(params.ConstructorArguments) == 0 {
-		constructorArguments, err = contractABI.Pack("") //
+		constructorArguments, err = contractABI.Pack("")
+		if err != nil {
+			log.Fatalf("Failed to pack constructor arguments: %v", err)
+		}
 	} else if len(params.ConstructorArguments) == 1 {
-		address := common.HexToAddress(params.ConstructorArguments[0].(string))
-		constructorArguments, err = contractABI.Pack("", address)
-	}
-
-	if err != nil {
-		log.Fatalf("Failed to pack constructor arguments: %v", err)
+		addressStr, ok := params.ConstructorArguments[0].(string)
+		if ok {
+			address := common.HexToAddress(addressStr)
+			constructorArguments, err = contractABI.Pack("", address)
+			if err != nil {
+				log.Fatalf("Failed to pack constructor arguments: %v", err)
+			}
+		}
 	}
 
 	data = append(contractBytecode, constructorArguments...)
